@@ -1,0 +1,6 @@
+
+{
+  "name": "数字钱包Demo Demo",
+  "description": "基于 Ethers.js v6 开发的轻量化 EVM 兼容钱包，支持 Polygon 和 BNB 链的原生币及 USDT 代币管理。",
+  "requestFramePermissions": []
+}

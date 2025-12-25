@@ -1,0 +1,1456 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "数字钱包demo服务端",
+        "description": "描述...",
+        "contact": {
+            "name": "zjh",
+            "email": "zjh181240@aliyun.com"
+        },
+        "version": "版本号: 1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "交易记录，记录用户发起的所有区块链交易",
+            "description": "交易记录，记录用户发起的所有区块链交易"
+        },
+        {
+            "name": "TODO",
+            "description": "TODO"
+        },
+        {
+            "name": "钱包地址，关联用户与其在不同区块链上的地址",
+            "description": "钱包地址，关联用户与其在不同区块链上的地址"
+        }
+    ],
+    "paths": {
+        "/transaction": {
+            "put": {
+                "tags": [
+                    "交易记录，记录用户发起的所有区块链交易"
+                ],
+                "summary": "修改交易记录，记录用户发起的所有区块链交易",
+                "description": "修改交易记录，记录用户发起的所有区块链交易",
+                "operationId": "edit",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TTransactionBo"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "交易记录，记录用户发起的所有区块链交易"
+                ],
+                "summary": "新增交易记录，记录用户发起的所有区块链交易",
+                "description": "新增交易记录，记录用户发起的所有区块链交易",
+                "operationId": "add",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TTransactionBo"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "TODO"
+                ],
+                "operationId": "register",
+                "parameters": [
+                    {
+                        "name": "bo",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/R"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "TODO"
+                ],
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "bo",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RLogin"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/wallet": {
+            "post": {
+                "tags": [
+                    "钱包地址，关联用户与其在不同区块链上的地址"
+                ],
+                "summary": "创建钱包",
+                "description": "创建钱包",
+                "operationId": "createWallet",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TWalletAddressOfCreateBo"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RBoolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{userId}/roles/{roleId}": {
+            "get": {
+                "operationId": "getLogin",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "roleId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/{id}": {
+            "get": {
+                "tags": [
+                    "交易记录，记录用户发起的所有区块链交易"
+                ],
+                "summary": "获取交易记录，记录用户发起的所有区块链交易详细信息",
+                "description": "获取交易记录，记录用户发起的所有区块链交易详细信息",
+                "operationId": "getInfo",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "主键",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RTTransactionVo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/list": {
+            "get": {
+                "tags": [
+                    "交易记录，记录用户发起的所有区块链交易"
+                ],
+                "summary": "查询交易记录，记录用户发起的所有区块链交易列表",
+                "description": "查询交易记录，记录用户发起的所有区块链交易列表",
+                "operationId": "list",
+                "parameters": [
+                    {
+                        "name": "bo",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/TTransactionBo"
+                        }
+                    },
+                    {
+                        "name": "pageQuery",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/PageQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TableDataInfoTTransactionVo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/javabeat/{regexp1}": {
+            "get": {
+                "operationId": "getRegExp",
+                "parameters": [
+                    {
+                        "name": "regexp1",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "tags": [
+                    "TODO"
+                ],
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/R"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/getCurrentUser": {
+            "get": {
+                "tags": [
+                    "TODO"
+                ],
+                "operationId": "getCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RLoginUser"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/wallet/getWalletList": {
+            "get": {
+                "tags": [
+                    "钱包地址，关联用户与其在不同区块链上的地址"
+                ],
+                "summary": "导入钱包根据私钥",
+                "description": "导入钱包根据私钥",
+                "operationId": "getWalletList",
+                "parameters": [
+                    {
+                        "name": "bo",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/TWalletAddressBo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RListTWalletAddress"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transaction/{ids}": {
+            "delete": {
+                "tags": [
+                    "交易记录，记录用户发起的所有区块链交易"
+                ],
+                "summary": "删除交易记录，记录用户发起的所有区块链交易",
+                "description": "删除交易记录，记录用户发起的所有区块链交易",
+                "operationId": "remove",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "path",
+                        "description": "主键串",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/wallet/{ids}": {
+            "delete": {
+                "tags": [
+                    "钱包地址，关联用户与其在不同区块链上的地址"
+                ],
+                "summary": "删除钱包地址，关联用户与其在不同区块链上的地址",
+                "description": "删除钱包地址，关联用户与其在不同区块链上的地址",
+                "operationId": "remove_1",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "path",
+                        "description": "主键串",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int64"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "operationId": "user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "user_3",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "user_2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "user_5",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "options": {
+                "operationId": "user_6",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "head": {
+                "operationId": "user_1",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "user_4",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/save_user": {
+            "get": {
+                "operationId": "saveUser",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "saveUser_3",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "saveUser_2",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "saveUser_5",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "options": {
+                "operationId": "saveUser_6",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "head": {
+                "operationId": "saveUser_1",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "operationId": "saveUser_4",
+                "parameters": [
+                    {
+                        "name": "u",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hello": {
+            "get": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_3",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_2",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_5",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "options": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_6",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "head": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_1",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "hello接口",
+                "description": "hello接口",
+                "operationId": "hello_4",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "名称",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "unknown user"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "欢迎字符串",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TTransactionBo": {
+                "required": [
+                    "amount",
+                    "chain",
+                    "createdAt",
+                    "fromAddress",
+                    "id",
+                    "status",
+                    "toAddress",
+                    "token",
+                    "txid",
+                    "updatedAt",
+                    "userId"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "主键",
+                        "format": "int64"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "发起交易的用户ID",
+                        "format": "int64"
+                    },
+                    "chain": {
+                        "type": "string",
+                        "description": "交易所在的区块链网络类型"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "交易的代币类型，native代表链原生代币（如MATIC/BNB），usdt代表该链上的USDT"
+                    },
+                    "fromAddress": {
+                        "type": "string",
+                        "description": "交易发送方的区块链地址"
+                    },
+                    "toAddress": {
+                        "type": "string",
+                        "description": "交易接收方的区块链地址"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "description": "交易金额，使用高精度十进制存储以保证准确性",
+                        "format": "int64"
+                    },
+                    "txid": {
+                        "type": "string",
+                        "description": "区块链上的交易哈希ID（Transaction Hash），用于在区块浏览器中查询"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "交易的当前状态：pending（处理中）、success（成功）、failed（失败）"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "交易记录创建时间"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "交易记录最后更新时间"
+                    }
+                },
+                "description": "交易记录，记录用户发起的所有区块链交易业务对象 t_transaction"
+            },
+            "RVoid": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "响应数据"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "Register": {
+                "required": [
+                    "email",
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "description": ""
+            },
+            "R": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": "响应数据"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "Login": {
+                "required": [
+                    "password",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "description": ""
+            },
+            "RLogin": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Login"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "TWalletAddressOfCreateBo": {
+                "required": [
+                    "address",
+                    "chain",
+                    "mnemonic",
+                    "privateKey"
+                ],
+                "type": "object",
+                "properties": {
+                    "chain": {
+                        "type": "string",
+                        "description": "区块链网络类型，例如 polygon 或 bsc"
+                    },
+                    "address": {
+                        "pattern": "^0x[a-fA-F0-9]{40}$",
+                        "type": "string",
+                        "description": "区块链上的钱包地址（EVM地址，以0x开头，共42字符）"
+                    },
+                    "privateKey": {
+                        "type": "string",
+                        "description": "私钥（AES加密存储）"
+                    },
+                    "mnemonic": {
+                        "type": "string",
+                        "description": "助记词（AES加密存储）"
+                    }
+                },
+                "description": "TODO"
+            },
+            "RBoolean": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "type": "boolean",
+                        "description": "响应数据"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "RTTransactionVo": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/TTransactionVo"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "TTransactionVo": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "主键",
+                        "format": "int64"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "发起交易的用户ID",
+                        "format": "int64"
+                    },
+                    "chain": {
+                        "type": "string",
+                        "description": "交易所在的区块链网络类型"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "交易的代币类型，native代表链原生代币（如MATIC/BNB），usdt代表该链上的USDT"
+                    },
+                    "fromAddress": {
+                        "type": "string",
+                        "description": "交易发送方的区块链地址"
+                    },
+                    "toAddress": {
+                        "type": "string",
+                        "description": "交易接收方的区块链地址"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "description": "交易金额，使用高精度十进制存储以保证准确性",
+                        "format": "int64"
+                    },
+                    "txid": {
+                        "type": "string",
+                        "description": "区块链上的交易哈希ID（Transaction Hash），用于在区块浏览器中查询"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "交易的当前状态：pending（处理中）、success（成功）、failed（失败）"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "交易记录创建时间"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "交易记录最后更新时间"
+                    }
+                },
+                "description": "交易记录，记录用户发起的所有区块链交易视图对象 t_transaction"
+            },
+            "PageQuery": {
+                "type": "object",
+                "properties": {
+                    "orderByColumn": {
+                        "type": "string",
+                        "description": "排序列"
+                    },
+                    "isAsc": {
+                        "type": "string",
+                        "description": "排序的方向desc或者asc"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "description": "分页大小",
+                        "format": "int32"
+                    },
+                    "pageNum": {
+                        "type": "integer",
+                        "description": "当前页数",
+                        "format": "int32"
+                    }
+                },
+                "description": "分页查询实体类"
+            },
+            "TableDataInfoTTransactionVo": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "description": "总记录数",
+                        "format": "int64"
+                    },
+                    "rows": {
+                        "type": "array",
+                        "description": "列表数据",
+                        "items": {
+                            "$ref": "#/components/schemas/TTransactionVo"
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "description": "消息状态码",
+                        "format": "int32"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "消息内容"
+                    }
+                },
+                "description": "表格分页数据对象"
+            },
+            "LoginUser": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "loginName": {
+                        "type": "string"
+                    },
+                    "userName": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "description": "TODO"
+            },
+            "RLoginUser": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/LoginUser"
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "TWalletAddressBo": {
+                "required": [
+                    "address",
+                    "chain",
+                    "createdAt",
+                    "id",
+                    "userId"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "主键",
+                        "format": "int64"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "format": "int64"
+                    },
+                    "chain": {
+                        "type": "string",
+                        "description": "区块链网络类型，例如 polygon 或 bsc"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "区块链上的钱包地址（EVM地址，以0x开头，共42字符）"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "该钱包地址记录的创建时间"
+                    }
+                },
+                "description": "钱包地址，关联用户与其在不同区块链上的地址业务对象 t_wallet_address"
+            },
+            "RListTWalletAddress": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "description": "响应码",
+                        "format": "int32"
+                    },
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "description": "响应消息"
+                    },
+                    "data": {
+                        "type": "array",
+                        "description": "响应数据",
+                        "items": {
+                            "$ref": "#/components/schemas/TWalletAddress"
+                        }
+                    }
+                },
+                "description": "响应信息主体"
+            },
+            "TWalletAddress": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "主键",
+                        "format": "int64"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "用户ID",
+                        "format": "int64"
+                    },
+                    "chain": {
+                        "type": "string",
+                        "description": "区块链网络类型，例如 polygon 或 bsc"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "区块链上的钱包地址（EVM地址，以0x开头，共42字符）"
+                    },
+                    "privateKey": {
+                        "type": "string",
+                        "description": "私钥（AES加密存储）"
+                    },
+                    "mnemonic": {
+                        "type": "string",
+                        "description": "助记词（AES加密存储）"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "该钱包地址记录的创建时间"
+                    }
+                },
+                "description": "钱包地址，关联用户与其在不同区块链上的地址对象 t_wallet_address"
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "description": ""
+            }
+        }
+    }
+}

@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sun</groupId>
+    <artifactId>service</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <web3j.version>4.8.7</web3j.version>
+        <sa-token.version>1.44.0</sa-token.version>
+        <spring-boot.version>3.2.0</spring-boot.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <spring-boot.mybatis>3.0.5</spring-boot.mybatis>
+
+        <easyexcel.version>3.3.3</easyexcel.version>
+        <hutool.version>5.8.22</hutool.version>
+        <lombok.version>1.18.30</lombok.version>
+        <mapstruct-plus.version>1.4.0</mapstruct-plus.version>
+        <mapstruct-plus.lombok.version>0.2.0</mapstruct-plus.lombok.version>
+        <!--<springdoc.version>2.8.13</springdoc.version>-->
+        <springdoc.version>2.2.0</springdoc.version>
+        <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
+
+        <!-- 插件版本 -->
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    </properties>
+    <dependencies>
+        <!-- 在 dependencies 中添加以下依赖 -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>${web3j.version}</version>
+        </dependency>
+        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <version>${sa-token.version}</version>
+        </dependency>
+
+        <!-- 自定义验证注解 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.therapi</groupId>
+            <artifactId>therapi-runtime-javadoc</artifactId>
+            <version>${therapi-javadoc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-extra</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-crypto</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.mybatis.spring.boot</groupId>-->
+        <!--    <artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--    <version>${spring-boot.mybatis}</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.github.linpeilie</groupId>
+            <artifactId>mapstruct-plus-spring-boot-starter</artifactId>
+            <version>${mapstruct-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- hutool 的依赖配置-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+                <logging.level>info</logging.level>
+                <db.basedir>${basedir}/src/main/resources</db.basedir>
+            </properties>
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+                <logging.level>info</logging.level>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <resource>
+                <!-- 指定资源文件的目录 -->
+                <directory>${project.basedir}/src/main/resources</directory>
+                <!-- 是否开启过滤替换配置，默认是不开启的 -->
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.db</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- 1. 禁用 Spring Boot 的 FatJar 重新打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <!-- 禁用 Spring Boot 3 的 Layered JAR 优化 -->
+                    <!-- 说明：SB3 默认启用分层构建（BOOT-INF/layers.idx），此处强制关闭 -->
+                    <layers>
+                        <enabled>false</enabled>
+                    </layers>
+
+                    <!-- 禁用可执行JAR的创建 -->
+                    <!-- 说明：SB插件默认会将JAR包装为可执行文件（添加启动脚本），此处关闭 -->
+                    <executable>false</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id> <!-- 标准repackage执行ID -->
+                        <goals>
+                            <goal>repackage</goal> <!-- SB插件的核心目标 -->
+                        </goals>
+                        <configuration>
+                            <!-- 关键：跳过默认的FatJar打包行为 -->
+                            <!-- 说明：true = 完全跳过repackage阶段，保留maven-jar-plugin生成的原始JAR -->
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 2. 使用 maven-jar-plugin 生成纯业务代码JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version> <!-- 显式指定版本避免Maven默认版本过低 -->
+                <configuration>
+                    <archive>
+                        <!-- 生成MANIFEST.MF文件的核心配置 -->
+                        <manifest>
+                            <!-- 1. 添加Class-Path条目到MANIFEST.MF -->
+                            <!-- 说明：自动生成依赖库路径（基于classpathPrefix） -->
+                            <addClasspath>true</addClasspath>
+
+                            <!-- 2. 依赖库路径前缀 -->
+                            <!-- 说明：所有依赖将放在JAR同级目录的lib/子目录 -->
+                            <!-- 原理：生成 Class-Path: lib/spring-core.jar lib/spring-boot.jar ... -->
+                            <classpathPrefix>lib/</classpathPrefix>
+
+                            <!-- 3. 指定主启动类 -->
+                            <mainClass>com.sun.service.ServiceApplication</mainClass>
+                        </manifest>
+
+                        <!-- 手动添加额外MANIFEST条目 -->
+                        <manifestEntries>
+                            <!-- 关键：将resources目录加入classpath -->
+                            <!-- 说明：classpathPrefix只处理JAR依赖，需手动添加资源目录 -->
+                            <!-- 原理：生成 Class-Path: ... config/ （注意末尾斜杠） -->
+                            <!-- 注意：Linux/Windows路径分隔符差异由JVM自动处理 -->
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+
+                    <!-- 从JAR中排除资源文件 -->
+                    <!-- 说明：确保最终JAR只包含编译后的.class文件 -->
+                    <!-- 原理：避免资源文件重复（classpath中已有resources/目录） -->
+                    <excludes>
+                        <exclude>**/*.properties</exclude>  <!-- 排除所有properties -->
+                        <exclude>**/*.yml</exclude>        <!-- 排除所有YAML -->
+                        <exclude>**/*.yaml</exclude>       <!-- 排除所有YAML（完整写法） -->
+                        <exclude>**/*.xml</exclude>        <!-- 排除MyBatis等XML -->
+                        <exclude>**/*.db</exclude>       <!-- 排除db配置 -->
+                        <exclude>static/**</exclude>       <!-- 排除静态资源 -->
+                        <exclude>templates/**</exclude>    <!-- 排除模板文件 -->
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!-- 3. 复制依赖库到 lib 目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id> <!-- 自定义执行ID -->
+                        <phase>package</phase> <!-- 绑定到package阶段（在JAR生成后执行） -->
+                        <goals>
+                            <goal>copy-dependencies</goal> <!-- 核心目标 -->
+                        </goals>
+                        <configuration>
+                            <!-- 1. 依赖输出目录 -->
+                            <!-- 说明：复制到target/lib（部署时需与JAR同级） -->
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+
+                            <!-- 2. 依赖范围过滤 -->
+                            <!-- 说明：仅包含runtime范围（排除test/provided） -->
+                            <!-- 原理：Spring Boot starter通常标记为compile/runtime -->
+                            <includeScope>runtime</includeScope>
+
+                            <!-- 3. 覆盖策略 -->
+                            <overWriteReleases>false</overWriteReleases>   <!-- 发布版不覆盖 -->
+                            <overWriteSnapshots>false</overWriteSnapshots> <!-- 快照版不覆盖 -->
+                            <overWriteIfNewer>true</overWriteIfNewer>      <!-- 仅当源文件更新时覆盖 -->
+
+                            <!-- 4. [高级] 排除特定依赖（示例） -->
+                            <!-- 说明：如需移除logback（使用log4j2时） -->
+                            <!-- <excludeGroupIds>ch.qos.logback</excludeGroupIds> -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 4. 复制资源文件到 resources 目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase> <!-- 与依赖复制同阶段 -->
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 1. 资源输出目录 -->
+                            <!-- 说明：部署时需放在JAR同级目录 -->
+                            <outputDirectory>${project.build.directory}/config</outputDirectory>
+
+                            <!-- 2. 资源处理规则 -->
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory> <!-- 源目录 -->
+
+                                    <!-- 3. 启用资源过滤 -->
+                                    <!-- 说明：替换${...}占位符（如application.yml中的@project.version@） -->
+                                    <!-- 原理：使用Maven属性替换资源文件中的变量 -->
+                                    <filtering>true</filtering>
+
+                                    <!-- 4. [可选] 排除特定文件（示例） -->
+                                    <!-- 说明：如需排除开发环境配置 -->
+                                    <excludes>
+                                        <exclude>**/*.db</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>copy-db-resources</id>
+                        <phase>package</phase> <!-- 与依赖复制同阶段 -->
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 1. 资源输出目录 -->
+                            <!-- 说明：部署时需放在JAR同级目录 -->
+                            <outputDirectory>${project.build.directory}/</outputDirectory>
+
+                            <!-- 2. 资源处理规则 -->
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory> <!-- 源目录 -->
+                                    <!-- 3. 启用资源过滤 -->
+                                    <!-- 说明：替换${...}占位符（如application.yml中的@project.version@） -->
+                                    <!-- 原理：使用Maven属性替换资源文件中的变量 -->
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>**/*.db</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.github.therapi</groupId>
+                            <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+                            <version>${therapi-javadoc.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>io.github.linpeilie</groupId>
+                            <artifactId>mapstruct-plus-processor</artifactId>
+                            <version>${mapstruct-plus.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${mapstruct-plus.lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <!-- 启用 -parameters 编译器标志 -->
+                    <!--<compilerArgument>-parameters</compilerArgument>-->
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

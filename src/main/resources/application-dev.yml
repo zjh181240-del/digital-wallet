@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.sqlite.JDBC
+    url: jdbc:sqlite:@db.basedir@/db/sqlite.db?date_string_format=yyyy-MM-dd HH:mm:ss
+    username:
+    password:
+  hikari:
+    # 最大连接池数量
+    maxPoolSize: 20
+    # 最小空闲线程数量
+    minIdle: 10
+    # 配置获取连接等待超时的时间
+    connectionTimeout: 30000
+    # 校验超时时间
+    validationTimeout: 5000
+    # 空闲连接存活最大时间，默认10分钟
+    idleTimeout: 600000
+    # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认30分钟
+    maxLifetime: 1800000
+    # 多久检查一次连接的活性
+    keepaliveTime: 300000
+# 区块链节点配置（使用测试网！）
+blockchain:
+  polygon:
+    rpc-url: https://rpc-mumbai.maticvigil.com  # Polygon Mumbai测试网
+    chain-id: 80001
+    usdt-contract: 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359  # 测试网USDT
+  bnb:
+    rpc-url: https://data-seed-prebsc-1-s1.binance.org:8545  # BSC测试网
+    chain-id: 97
+    usdt-contract: 0x337610d27c682E347C9cD60BD4b3b107C9d34dDd  # 测试网USDT
